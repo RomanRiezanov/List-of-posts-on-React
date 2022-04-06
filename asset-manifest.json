@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/RomanRiezanov/List-of-posts-on-React.git/static/css/main.ab505eb1.css",
+    "main.js": "/RomanRiezanov/List-of-posts-on-React.git/static/js/main.170f53df.js",
+    "index.html": "/RomanRiezanov/List-of-posts-on-React.git/index.html",
+    "main.ab505eb1.css.map": "/RomanRiezanov/List-of-posts-on-React.git/static/css/main.ab505eb1.css.map",
+    "main.170f53df.js.map": "/RomanRiezanov/List-of-posts-on-React.git/static/js/main.170f53df.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ab505eb1.css",
+    "static/js/main.170f53df.js"
+  ]
+}
