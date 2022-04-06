@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/RomanRiezanov/List-of-posts-on-React.git/static/css/main.ab505eb1.css",
-    "main.js": "/RomanRiezanov/List-of-posts-on-React.git/static/js/main.170f53df.js",
-    "index.html": "/RomanRiezanov/List-of-posts-on-React.git/index.html",
-    "main.ab505eb1.css.map": "/RomanRiezanov/List-of-posts-on-React.git/static/css/main.ab505eb1.css.map",
-    "main.170f53df.js.map": "/RomanRiezanov/List-of-posts-on-React.git/static/js/main.170f53df.js.map"
+    "main.css": "/List-of-posts-on-React/static/css/main.ab505eb1.css",
+    "main.js": "/List-of-posts-on-React/static/js/main.170f53df.js",
+    "index.html": "/List-of-posts-on-React/index.html",
+    "main.ab505eb1.css.map": "/List-of-posts-on-React/static/css/main.ab505eb1.css.map",
+    "main.170f53df.js.map": "/List-of-posts-on-React/static/js/main.170f53df.js.map"
   },
   "entrypoints": [
     "static/css/main.ab505eb1.css",
