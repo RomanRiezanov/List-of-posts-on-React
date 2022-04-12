@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import ClassCounter from './components/ClassCounter';
 // import Counter from './components/Counter';
 import PostsList from './components/PostsList';
 import './styles/app.css';
 import PostForm from './components/PostForm';
-import Select from './components/UI/select/Select';
+import PostFilter from './components/PostFilter';
+import Modal from './components/UI/modal/Modal';
+import Button from './components/UI/button/Button';
+import { usePosts } from './hooks/usePosts';
+import PostService from './API/PostService';
+import Loader from './components/UI/loader/Loader';
+import { useFetching } from './hooks/useFetching';
+import { getPageCount, getPagesArray } from './utils/pages';
+import Pagination from './components/UI/pagination/Pagination';
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'Javascript', body: 'Description' },
-    { id: 2, title: 'Javascript 2', body: 'Description' },
-    { id: 3, title: 'Javascript 3', body: 'Description' },
-  ]);
+  const [posts, setPosts] = useState([]);
+  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const [modal, setModal] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
-  const [selectedSort, setSelectedSort] = useState('');
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data);
+    const totalCount = response.headers['x-total-count'];
+    setTotalPages(getPageCount(totalCount, limit));
+  });
+
+  useEffect(() => {
+    fetchPosts();
+  }, [page]);
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
+    setModal(false);
   };
 
   // Get post from child component
@@ -24,31 +45,42 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
-  const sortPosts = (sort) => {
-    setSelectedSort(sort);
-    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
+  const changePage = (page) => {
+    setPage(page);
   };
 
   return (
     <div className="App">
       {/* <Counter />
       <ClassCounter /> */}
-      <PostForm create={createPost} />
+      <Button style={{ marginTop: '30px' }} onClick={() => setModal(true)}>
+        Add new post
+      </Button>
+      <Modal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </Modal>
+
       <hr style={{ margin: '15px 0' }} />
-      <Select
-        value={selectedSort}
-        onChange={sortPosts}
-        defaultValue="Sort"
-        options={[
-          { value: 'title', name: 'By name' },
-          { value: 'body', name: 'By description' },
-        ]}
-      />
-      {posts.length !== 0 ? (
-        <PostsList remove={removePost} posts={posts} title={'JS Posts'} />
+      <PostFilter filter={filter} setFilter={setFilter} />
+      {postError && <h1>Error ${postError}</h1>}
+      {isPostsLoading ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px',
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
-        <h1 style={{ textAlign: 'center', marginTop: '25px' }}>No Posts!</h1>
+        <PostsList
+          remove={removePost}
+          posts={sortedAndSearchedPosts}
+          title={'JS Posts'}
+        />
       )}
+      <Pagination page={page} changePage={changePage} totalPages={totalPages} />
     </div>
   );
 }
