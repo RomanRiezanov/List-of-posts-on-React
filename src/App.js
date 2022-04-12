@@ -59,7 +59,6 @@ function App() {
       <Modal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </Modal>
-
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
       {postError && <h1>Error ${postError}</h1>}
