@@ -1,8 +1,10 @@
 .btn {
   padding: 5px 15px;
   color: teal;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
   background: transparent;
-  border: 1px solid teal;
+  border: 2px solid teal;
   cursor: pointer;
+  margin: 5px;
 }
