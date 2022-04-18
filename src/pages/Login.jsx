@@ -4,7 +4,7 @@ import Input from '../components/UI/input/Input';
 import { AuthContext } from '../context';
 
 const Login = () => {
-  alert('For Log in please push te button "Log in"!!!');
+  alert('For Log in please push the button "Log in"!!!');
   const { isAuth, setIsAuth } = useContext(AuthContext);
   const login = (event) => {
     event.preventDefault();
